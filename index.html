@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <style>
+        @import url('https://use.fontawesome.com/releases/v5.0.13/css/all.css');
+        @font-face {
+            font-family: 'Lato';
+            font-style: normal;
+            font-weight: 300;
+            src: local('Lato Light'), local('Lato-Light'), url(https://fonts.gstatic.com/s/lato/v14/S6u9w4BMUTPHh7USSwiPHA.ttf) format('truetype');
+        }
+        
+        @font-face {
+            font-family: 'Lato';
+            font-style: normal;
+            font-weight: 400;
+            src: local('Lato Regular'), local('Lato-Regular'), url(https://fonts.gstatic.com/s/lato/v14/S6uyw4BMUTPHjx4wWw.ttf) format('truetype');
+        }
+        
+        @font-face {
+            font-family: 'Lato';
+            font-style: normal;
+            font-weight: 700;
+            src: local('Lato Bold'), local('Lato-Bold'), url(https://fonts.gstatic.com/s/lato/v14/S6u9w4BMUTPHh6UVSwiPHA.ttf) format('truetype');
+        }
+        
+        *,
+        *:before,
+        *:after {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #f5f5f5;
+            padding: 0;
+            margin: 0;
+            font-family: 'Lato', sans-serif;
+        }
+        
+        i.fa {
+            font-size: 16px;
+        }
+        
+        p {
+            font-size: 16px;
+            line-height: 1.42857143;
+        }
+        
+        .header {
+            position: fixed;
+            z-index: 10;
+            top: 0;
+            left: 0;
+            background: #161e3c;
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            color: #fff;
+        }
+        
+        .header .logo {
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .header #menu-action {
+            display: block;
+            float: left;
+            width: 60px;
+            height: 50px;
+            line-height: 50px;
+            margin-right: 15px;
+            color: #fff;
+            text-decoration: none;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.15);
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            -webkit-transition: all 0.2s ease-in-out;
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .header #menu-action i {
+            display: inline-block;
+            margin: 0 5px;
+        }
+        
+        .header #menu-action span {
+            width: 0px;
+            display: none;
+            overflow: hidden;
+            -webkit-transition: all 0.2s ease-in-out;
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .header #menu-action:hover {
+            background: rgba(0, 0, 0, 0.25);
+        }
+        
+        .header #menu-action.active {
+            width: 250px;
+            -webkit-transition: all 0.2s ease-in-out;
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .header #menu-action.active span {
+            display: inline;
+            width: auto;
+            -webkit-transition: all 0.2s ease-in-out;
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .sidebar {
+            position: fixed;
+            z-index: 10;
+            left: 0;
+            top: 50px;
+            height: 100%;
+            width: 60px;
+            background: #fff;
+            border-right: 1px solid #ddd;
+            text-align: center;
+            -webkit-transition: all 0.2s ease-in-out;
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .sidebar:hover,
+        .sidebar.active,
+        .sidebar.hovered {
+            width: 250px;
+            -webkit-transition: all 0.2s ease-in-out;
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .sidebar ul li {
+            display: block;
+        }
+        
+        .sidebar ul li a {
+            display: block;
+            position: relative;
+            white-space: nowrap;
+            overflow: hidden;
+            border-bottom: 1px solid #ddd;
+            color: #444;
+            text-align: left;
+        }
+        
+        .sidebar ul li a i {
+            display: inline-block;
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            -webkit-animation-duration: 0.7s;
+            -moz-animation-duration: 0.7s;
+            -o-animation-duration: 0.7s;
+            animation-duration: 0.7s;
+            -webkit-animation-fill-mode: both;
+            -moz-animation-fill-mode: both;
+            -o-animation-fill-mode: both;
+            animation-fill-mode: both;
+        }
+        
+        .sidebar ul li a span {
+            display: inline-block;
+            height: 60px;
+            line-height: 60px;
+        }
+        
+        .sidebar ul li a:hover {
+            background-color: #eee;
+        }
+        
+        .sidebar ul li a:hover i {
+            -webkit-animation-name: swing;
+            -moz-animation-name: swing;
+            -o-animation-name: swing;
+            animation-name: swing;
+        }
+        
+        .main {
+            position: relative;
+            display: block;
+            top: 50px;
+            left: 0;
+            padding: 15px;
+            padding-left: 75px;
+            -webkit-transition: all 0.2s ease-in-out;
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .main.active {
+            padding-left: 275px;
+            -webkit-transition: all 0.2s ease-in-out;
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .main .jumbotron {
+            background-color: #fff;
+            padding: 30px !important;
+            border: 1px solid #dfe8f1;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+        }
+        
+        .main .jumbotron h1 {
+            font-size: 24px;
+            margin: 0;
+            padding: 0;
+            margin-bottom: 12px;
+        }
+        
+        @-webkit-keyframes swing {
+            20% {
+                -webkit-transform: rotate3d(0, 0, 1, 15deg);
+                transform: rotate3d(0, 0, 1, 15deg);
+            }
+            40% {
+                -webkit-transform: rotate3d(0, 0, 1, -10deg);
+                transform: rotate3d(0, 0, 1, -10deg);
+            }
+            60% {
+                -webkit-transform: rotate3d(0, 0, 1, 5deg);
+                transform: rotate3d(0, 0, 1, 5deg);
+            }
+            80% {
+                -webkit-transform: rotate3d(0, 0, 1, -5deg);
+                transform: rotate3d(0, 0, 1, -5deg);
+            }
+            100% {
+                -webkit-transform: rotate3d(0, 0, 1, 0deg);
+                transform: rotate3d(0, 0, 1, 0deg);
+            }
+        }
+        
+        @keyframes swing {
+            20% {
+                -webkit-transform: rotate3d(0, 0, 1, 15deg);
+                -ms-transform: rotate3d(0, 0, 1, 15deg);
+                transform: rotate3d(0, 0, 1, 15deg);
+            }
+            40% {
+                -webkit-transform: rotate3d(0, 0, 1, -10deg);
+                -ms-transform: rotate3d(0, 0, 1, -10deg);
+                transform: rotate3d(0, 0, 1, -10deg);
+            }
+            60% {
+                -webkit-transform: rotate3d(0, 0, 1, 5deg);
+                -ms-transform: rotate3d(0, 0, 1, 5deg);
+                transform: rotate3d(0, 0, 1, 5deg);
+            }
+            80% {
+                -webkit-transform: rotate3d(0, 0, 1, -5deg);
+                -ms-transform: rotate3d(0, 0, 1, -5deg);
+                transform: rotate3d(0, 0, 1, -5deg);
+            }
+            100% {
+                -webkit-transform: rotate3d(0, 0, 1, 0deg);
+                -ms-transform: rotate3d(0, 0, 1, 0deg);
+                transform: rotate3d(0, 0, 1, 0deg);
+            }
+        }
+        
+        .swing {
+            -webkit-transform-origin: top center;
+            -ms-transform-origin: top center;
+            transform-origin: top center;
+            -webkit-animation-name: swing;
+            animation-name: swing;
+        }
+        
+        .stopka {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            margin-left: -200px;
+            width: 400px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <a href="#" id="menu-action">
+            <i class="fas fa-bars"></i>
+            <span></span>
+        </a>
+        <div class="logo id">
+            API
+        </div>
+    </div>
+    <div class="sidebar">
+        <ul>
+            <li><a href="#"><i class="fas fa-tachometer-alt"></i><span></span></a></li>
+            <li><a href="#"><i class="fas fa-users"></i><span></span></a></li>
+            <li><a href="#"><i class="fas fa-suitcase"></i><span></span></a></li>
+            <li><a href="#"><i class="fas fa-home"></i><span></span></a></li>
+            <li><a href="#"><i class="fas fa-gamepad"></i><span></span></a></li>
+    </div>
+
+    <!-- Content -->
+    <div class="main">
+        <div class="hipsum">
+            <div class="jumbotron">
+                <h1 id="hello,-world!">Hey, TOI!<a class="anchorjs-link" href="#hello,-world!"><span class="anchorjs-icon"></span></a></h1>
+                
+                    <span id="add-user" class="btn btn-primary" role="button">Inscris toi!</span>
+                
+                    <span id="login-user" class="btn btn-primary" role="button">Connexion!</span>
+                
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Prenom</th>
+                        <th>Nom</th>
+                        <th>Email</th>
+                        <th>Date Naissance</th>                        
+                        <th>Lieu</th>
+                        <th>Created</th>
+                        <th>Option</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <form name="Formlogin" id="form-login" class="form-horizontal" style="display:none">
+                <fieldset>
+
+                    <!-- Form Login -->
+                    <legend>
+                        <span id="title-form">Connexion</span>
+                        <span id="title-form-error" style=" color: red; font-size: small; "></span>
+                    </legend>
+
+
+                    <input id="id" type="hidden">
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinput">Email</label>
+                        <div class="col-md-5">
+                            <input id="email" name="email" type="email" placeholder="Votre email" class="form-control input-md" required="">
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="input-password">
+                        <label class="col-md-4 control-label" for="textinput">Password</label>
+                        <div class="col-md-5">
+                            <input id="password" name="password" type="password" placeholder="Votre password" class="form-control input-md">
+                        </div>
+                    </div>
+                    <!-- Button -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for=""></label>
+                        <div class="col-md-4">
+                            <button id="btn-login-user" style=" width: 100%; " type="submit" class="btn btn-primary">Valider</button>
+                        </div>
+                    </div>
+
+                </fieldset>
+            </form>
+
+            <form name="Formadduser" id="form-add-user" class="form-horizontal" style="display:none">
+                <fieldset>
+
+                    <!-- Form Register -->
+                    <legend>
+                        <span id="title-form">Inscription</span>
+                        <span id="title-form-error" style=" color: red; font-size: small; "></span>
+                    </legend>
+
+
+                    <input id="id" type="hidden">
+
+                   <!-- <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinput">Homme</label>
+                        <div class="col-md-5">
+                            <input type="radio" id="
+                            " name="sexe" value="Homme"  class="form-control input-md" required="">
+                        </div>
+                    </div> 
+                    
+                    <div class="form-group">
+                            <label class="col-md-4 control-label" for="textinput">Femme</label>
+                            <div class="col-md-5">
+                                <input type="radio" id="sexe" name="sexe" value="Femme"  class="form-control input-md" checked="checked" required="">
+                            </div>
+                        </div> -->
+
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinput">Nom</label>
+                        <div class="col-md-5">
+                            <input id="nom" name="nom" type="text" placeholder="Votre nom" class="form-control input-md" required="">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinput">Prenom</label>
+                        <div class="col-md-5">
+                            <input id="prenom" name="prenom" type="text" placeholder="Votre prenom" class="form-control input-md" required="">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinput">Email</label>
+                        <div class="col-md-5">
+                            <input id="email" name="email" type="email" placeholder="Votre email" class="form-control input-md" required="">
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="input-password">
+                        <label class="col-md-4 control-label" for="textinput">Password</label>
+                        <div class="col-md-5">
+                            <input id="password" name="password" type="password" placeholder="Votre password" class="form-control input-md">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinput">Date de naissance</label>
+                        <div class="col-md-5">
+                            <input id="date" name="date_naissance" type="date" placeholder="Votre date" class="form-control input-md" required="">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinput">Lieu de naissance</label>
+                        <div class="col-md-5">
+                            <input id="lieu" name="lieu" type="text" placeholder="Lieu de naissance" class="form-control input-md" required="">
+                        </div>
+                    </div>
+                    <!-- Button -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for=""></label>
+                        <div class="col-md-4">
+                            <button id="btn-add-user" style=" width: 100%; " type="submit" class="btn btn-primary">Valider</button>
+                        </div>
+                    </div>
+
+                </fieldset>
+            </form>
+
+
+        </div>
+    </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(function() {
+            console.log("Debut du script")
+
+            function refreshUser() {
+
+                console.log("Debut du refreshUser")
+                $.get("http://localhost:8080/users").done(function(data) {
+                    $("table > tbody").html("")
+                    for (let i = 0; i < data.length; i++) {
+                        $("table > tbody").append("<tr> <td class='id'> " + data[i]._id + " </td><td> " + data[i].nom + " </td><td> " + data[i].prenom + " </td><td> " + data[i].email + " </td><td> " + data[i].date_naissance + " </td><td> " + data[i].lieu + " </td><td> " + data[i].createdAt + " </td> <td><i data-id='" + data[i]._id + "' class='fas fa-times'></i></td></tr>")
+                    }
+                    idUpdate()
+                    console.log("Fin du refreshUser")
+                })
+            }
+
+            function deleteUser(id) {
+                $.ajax({
+                    type: 'DELETE',
+                    url: "http://localhost:8080/users/" + id
+                }).done(function(data) {
+                    refreshUser()
+                })
+            }
+
+
+            $("#login-user").click(function() {
+                refreshForm()
+                    //$("form").css("display", "block")
+                    $('#add-user').toggle()
+                    $("#form-add-user").toggle()
+            })
+
+            $("#form-login").submit(function(e) {
+                e.preventDefault()
+                if ($("#id").val().length > 1) {
+                    $.ajax({
+                        url: "http://localhost:8080/users/" + $("#id").val().trim(),
+                        type: 'PUT',
+                        data: {
+                            nom: $("input[name='nom']").val(),
+                            prenom: $("input[name='prenom']").val(),
+                            email: $("input[name='email']").val(),
+                            date_naissance: $("input[name='date_naissance']").val(),
+                            lieu: $("input[name='lieu']").val(),
+                        }
+                    }).done(function(data) {
+                        $("#form-login").css("display", "none")
+                        refreshUser()
+                    })
+                } else {
+                    $.post("http://localhost:8080/login", $("#form-login").serialize()).done(function(data) {
+                        $("#form-login").css("display", "none")
+                        refreshUser()
+                    })
+                }
+            })
+
+            $("#add-user").click(function() {
+                refreshForm()
+                    //$("form").css("display", "block")
+                    $('#login-user').toggle() 
+                    $("#form-login").toggle()
+            })
+
+            $("#form-add-user").submit(function(e) {
+                e.preventDefault()
+                if ($("#id").val().length > 1) {
+                    $.ajax({
+                        url: "http://localhost:8080/users/" + $("#id").val().trim(),
+                        type: 'PUT',
+                        data: {
+                            nom: $("input[name='nom']").val(),
+                            prenom: $("input[name='prenom']").val(),
+                            email: $("input[name='email']").val(),
+                            date_naissance: $("input[name='date_naissance']").val(),
+                            lieu: $("input[name='lieu']").val(),
+                        }
+                    }).done(function(data) {
+                        $("#form-add-user").css("display", "none")
+                        refreshUser()
+                    })
+                } else {
+                    $.post("http://localhost:8080/register", $("#form-add-user").serialize()).done(function(data) {
+                        $("#form-add-user").css("display", "none")
+                        refreshUser()
+                    })
+                }
+            })
+
+
+            function idUpdate() {
+                $("table i").click(function() {
+                    deleteUser($(this).data('id').trim())
+                })
+
+                $(".id").click(function() {
+                    $.get("http://localhost:8080/users/" + $(this).text().trim())
+                        .done(function(data) {
+                            refreshForm()
+                            $("#id").val(data._id)
+                            $("input[name='nom']").val(data.nom)
+                            $("input[name='prenom']").val(data.prenom)
+                            $("input[name='email']").val(data.email)
+                            $("input[name='date_naissance']").val(dateBDDToDateForm(data.date_naissance))
+                            $("input[name='lieu']").val(data.lieu)
+                            $("#input-password").hide();
+                        })
+                })
+            }
+
+            function dateBDDToDateForm(date) {
+                return date.split('T')[0]
+            }
+
+            function refreshForm() {
+                $("#form-add-user").css("display", "block")
+                $("#form-login").css("display", "block")
+                $("#input-password").show();
+                $('input').val("")
+                $("#id").val("")
+            }
+
+            refreshUser()
+
+            console.log("Fin du script")
+
+        })
+    </script>
+</body>
+
+</html>
